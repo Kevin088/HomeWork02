@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class MySQLiteOpenHelper extends SQLiteOpenHelper {
-	private final static String DB_NAME = "db_mywords.db";
+	private final static String DB_NAME = "db_account_book.db";
 	private final static int VERSION = 1;
 	public SQLiteDatabase dbConn;
 
@@ -22,13 +22,18 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		db.execSQL("create table if not exists tb_mywords(_id integer primary key autoincrement , word , detail)");
+		db.execSQL("create table if not exists tb_income_expenses_name" +
+				"(_id INTEGER PRIMARY KEY  not null,typename,_type)");
+		db.execSQL("create table if not exists tb_income_expenses_detail(_id INTEGER PRIMARY KEY  not null," +
+				"datetime,money,name_id,foreign key(name_id) references tb_income_expenses_name(_id));" +
+				"pragma foreign_keys=on");
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		if (newVersion > oldVersion) {
-			db.execSQL("drop table if exists tb_mywords");
+			db.execSQL("drop table if exists tb_income_expenses_name");
+			db.execSQL("drop table if exists tb_income_expenses_detail");
 			onCreate(db);
 		}
 	}
@@ -51,7 +56,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 	 */
 	public int selectCount(String sql, String[] selectionArgs) {
 		Cursor cursor = dbConn.rawQuery(sql, selectionArgs);
-		if (cursor != null) {
+		if (cursor.getCount() !=0) {
 			cursor.moveToFirst();
 			int count = cursor.getInt(0);
 			cursor.close();
