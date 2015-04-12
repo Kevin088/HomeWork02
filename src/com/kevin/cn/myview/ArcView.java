@@ -61,6 +61,9 @@ public class ArcView extends View{
     }
 
 
+    public void viewNotify(){
+        invalidate();
+    }
 
     /*
     *    1 Color.RED;
@@ -173,11 +176,12 @@ public class ArcView extends View{
                     break;
 
             }
-            canvas.drawRect(500,700+(50*i),600,700+(50*(i+1)),arcPaint);
-            canvas.drawText(text,630,730+(50*i),textPaint);
-
-
+            canvas.drawRect(500,650+(50*i),600,650+(50*(i+1)),arcPaint);
+            canvas.drawText(text,630,680+(50*i),textPaint);
         }
+        textPaint.setTextAlign(Paint.Align.CENTER);
+        canvas.drawText("收入图形比例",160,340,textPaint);
+        canvas.drawText("支出图形比例",480,340,textPaint);
     }
 
 

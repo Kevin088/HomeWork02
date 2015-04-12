@@ -2,6 +2,11 @@ package com.kevin.cn;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
 import com.kevin.cn.helper.MySQLiteOpenHelper;
 import com.kevin.cn.myview.ArcView;
 
@@ -16,23 +21,70 @@ public class ChartActivity extends Activity {
 
     ArcView arcView;
     MySQLiteOpenHelper db;
+    Spinner spinner;
+    String a;
+    String b;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chart);
         arcView= (ArcView) findViewById(R.id.arcView);
         db=new MySQLiteOpenHelper(this);
+
+        String[]arr=new String[]{"一月份","二月份","三月份","四月份","五月份","六月份","七月份","八月份","九月份","十月份","十一月份","十二月份"};
+        spinner= (Spinner) findViewById(R.id.spinner2);
+        ArrayAdapter adapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1,arr);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                changeMonth(i);
+                productArcView();
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+
+
+
+
+
+
+
+    }
+    private void changeMonth(int i){
+        if (i+1<10) {
+            a = "0"+(i+1);
+        }else{
+            a=i+1+"";
+        }
+        if (i+2<10){
+            b="0"+(i+2);
+        }else {
+            b=i+2+"";
+        }
+
+    }
+    private void productArcView(){
         List<Map<String,Object>> totalData_In=db.selectList("select name_id,money,datetime from tb_income_expenses_detail join " +
                 "tb_income_expenses_name on tb_income_expenses_name._id=" +
                 "tb_income_expenses_detail.name_id where _type=?",new String[]{"1"});
         List<Map<String,Object>> totalData_Out=db.selectList("select name_id,money,datetime from tb_income_expenses_detail join " +
                 "tb_income_expenses_name on tb_income_expenses_name._id=" +
-                "tb_income_expenses_detail.name_id where _type=?",new String[]{"0"});
+                "tb_income_expenses_detail.name_id where _type=?", new String[]{"0"});
 
         Map<Integer,Integer> dataIn=dateChange(totalData_In);
         Map<Integer,Integer> dataOut=dateChange(totalData_Out);
         arcView.setData_in(dataIn);
         arcView.setData_out(dataOut);
+        arcView.viewNotify();
 
 
 
@@ -46,18 +98,18 @@ public class ChartActivity extends Activity {
         Map<Integer,Integer> map1= new HashMap<Integer,Integer>();
         for (Map<String,Object> map:list){
             String dateTime=map.get("datetime").toString();
-            if (dateTime.length()==9){
-                min=dateTime.compareTo("2015-4-00");
-                max=dateTime.compareTo("2015-5-00");
+            if (dateTime.length()!=10){
+                Toast.makeText(this,"日期格式错误",Toast.LENGTH_LONG).show();
+                return null;
             }
-            if (dateTime.length()==10){
-                min=dateTime.compareTo("2015-04-00");
-                max=dateTime.compareTo("2015-05-00");
-            }
+
+            min=dateTime.compareTo("2015-"+a+"-00");
+            max=dateTime.compareTo("2015-"+b+"-00");
+
             if(min>0&&max<0){
               Integer value=map1.put(Integer.parseInt (map.get("name_id").toString()), Integer.parseInt(map.get("money").toString()));
-               // Integer value=map1.put(1, 1);
-                ;
+
+
                 if (value!=null){
                     Integer data=map1.get(Integer.parseInt(map.get("name_id").toString()));
                     value=value+data;

@@ -96,7 +96,14 @@ public class MainActivity extends Activity {
 
 
                 //String datetime= DateHelper.getCurrentDate();
-                String datetime=datePicker.getYear()+"-"+(datePicker.getMonth()+1)+"-"+datePicker.getDayOfMonth();
+
+                String month=datePicker.getMonth()+1+"";
+                if(month.length()==1)
+                    month="0"+month;
+                String day=datePicker.getDayOfMonth()+"";
+                if(day.length()==1)
+                    day="0"+day;
+                String datetime=datePicker.getYear()+"-"+month+"-"+day;
                 String money=text.toString();
                 int name_id=Integer.parseInt((String) totaList.get(position).get("_id"));
                boolean flag= db.execData("insert into tb_income_expenses_detail (datetime ,money ,name_id)values(?,?,?)",
