@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+        android:background="#fff">
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+        <TextView
+                android:text="日期"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:textColor="#000"
+                android:layout_weight="1"
+                android:gravity="right"
+                />
+        <TextView
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                />
+        <TextView
+                android:id="@+id/textView_datetime"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:textSize="25sp"
+                android:textColor="#000"
+                android:gravity="left"
+                android:layout_height="wrap_content"
+                android:text="2015-03-04"
+                android:clickable="true"
+                android:inputType="date"
+                />
+    </LinearLayout>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            >
+        <TextView
+                android:text="种类"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:textSize="25sp"
+                android:textColor="#000"
+                android:layout_weight="1"
+                android:gravity="right"
+                />
+        <TextView
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                />
+        <Spinner
+                android:id="@+id/spinner_income_categrary"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="#fff"
+                android:dropDownWidth="wrap_content"
+
+                android:dropDownSelector="@android:color/background_light"
+                ></Spinner>
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                />
+    </LinearLayout>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            >
+        <TextView
+                android:text="金额"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:textColor="#000"
+                android:layout_weight="1"
+                android:gravity="right"
+                />
+        <TextView
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                />
+        <EditText
+                android:id="@+id/edittext_income_money"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:textSize="25sp"
+                android:textColor="#000"
+                android:gravity="left"
+                android:layout_height="wrap_content"
+                android:hint="输入整数"
+                android:inputType="number"
+
+                />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.31"
+            android:text="OK"
+            android:id="@+id/button_add_income"
+                    />
+
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="升序"
+                android:id="@+id/button_orderby_esc"
+                android:layout_gravity="center_horizontal"
+                />
+
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="降序"
+                android:id="@+id/button_orderby_desc"
+                android:layout_gravity="center_horizontal"
+                />
+    </LinearLayout>
+        <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/listView_income"
+                />
+
+</LinearLayout>

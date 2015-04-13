@@ -20,6 +20,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ChartActivity"/>
+        <activity android:name=".ChartActivity"
+                android:label="比例图"/>
+        <activity android:name=".IncomeActivity"
+                android:label="收入"/>
+        <activity android:name=".myview.ExpenseActivity"/>
     </application>
 </manifest>
